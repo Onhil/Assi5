@@ -39,7 +39,7 @@ class XmlSkierLogs
     public function getClubs()
     {
         $clubs = array();
-        
+        try{
          $elements = $this->xpath->query('/SkierLogs/Clubs/Club');
         foreach ($elements as $element) {
             $xmlName = $element->getElementsByTagName("Name");
@@ -54,6 +54,13 @@ class XmlSkierLogs
             
             array_push($clubs, $v); // appends new club
         }
+        if(!$clubs){
+          throw new Exeption("No clubs");
+        }
+        }
+        catch(Exeption $e){
+          echo $e->getMessage();
+        }
         // TODO: Implement the function retrieving club information
         return $clubs;
     }
@@ -67,7 +74,7 @@ class XmlSkierLogs
     public function getSkiers()
     {
         $skiers = array();
-
+      try{
         $elements = $this->xpath->query('/SkierLogs/Skiers/Skier');
         foreach ($elements as $element) {
           $xmlFirstName = $element->getElementsByTagName("FirstName");
@@ -115,7 +122,14 @@ class XmlSkierLogs
         }
           array_push($skiers, $v); // appends new club
         }
-        
+
+        if(!$skiers){
+          throw new Exeption("No skiers");
+        }
+      }
+      catch(Exeption $e){
+        echo $e->getMessage();
+      }
       
     
         // TODO: Implement the function retrieving skier information,
